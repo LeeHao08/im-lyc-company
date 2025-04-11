@@ -28,8 +28,6 @@
 <script setup lang="ts">
 import { provide, ref } from "vue";
 import { RouterView } from "vue-router";
-import MyMenu from "@/components/my-menu/index.vue"; // 确保正确导入路径
-
 // 菜单折叠状态
 const isMenuCollapsed = ref(false);
 

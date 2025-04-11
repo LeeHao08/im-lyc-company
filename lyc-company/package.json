@@ -1,0 +1,32 @@
+{
+  "name": "lyc-company",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "amfe-flexible": "^2.2.1",
+    "element-plus": "^2.9.7",
+    "vant": "^4.9.18",
+    "vue": "^3.5.13",
+    "vue-i18n": "^10.0.6",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.14",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "postcss": "^8.5.3",
+    "postcss-pxtorem": "^6.1.0",
+    "sass-embedded": "^1.86.0",
+    "typescript": "~5.7.2",
+    "unplugin-auto-import": "^19.1.2",
+    "unplugin-vue-components": "^28.4.1",
+    "vite": "^6.2.0",
+    "vue-tsc": "^2.2.4"
+  }
+}

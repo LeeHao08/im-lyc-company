@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /private/  # 禁止抓取 /private/ 目录
+Disallow: /tmp/      # 禁止抓取临时文件
+Allow: /             # 允许其他路径

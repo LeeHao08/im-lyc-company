@@ -13,6 +13,7 @@ declare module 'vue' {
     Architecture: typeof import('./src/components/architecture/index.vue')['default']
     copy: typeof import('./src/components/my-site/index copy.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
+    ElBadge: typeof import('element-plus/es')['ElBadge']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']

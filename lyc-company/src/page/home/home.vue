@@ -83,11 +83,19 @@
       <MyFooter />
     </el-container>
   </div>
+  <!-- 访问量 -->
+  <el-badge :value="formattedCount" class="item" color="green">
+    <el-button type="primary" :icon="View" circle />
+  </el-badge>
 </template>
 
 <script lang="ts" setup>
+import { View } from "@element-plus/icons-vue";
 import { ref, defineAsyncComponent, computed } from "vue";
 import { useI18n } from "vue-i18n";
+import { useCounterStore } from "@/stores/counter"; // 引入计数器存储
+
+const counterStore = useCounterStore(); // 使用计数器存储
 const { t, locale } = useI18n();
 
 const loading = ref(true);
@@ -131,6 +139,13 @@ const toggleLanguage = () => {
 
 // 使用handleSelect选择的key来找到映射中的组件
 const currentComponent = computed(() => componentsMap[activeIndex.value]);
+// 自动获取访问人数
+counterStore.fetch();
+
+// 格式化访问人数
+const formattedCount = computed(() =>
+  counterStore.count === -1 ? "N/A" : counterStore.count.toLocaleString()
+);
 </script>
 
 <style lang="scss" scoped>
@@ -180,5 +195,11 @@ const currentComponent = computed(() => componentsMap[activeIndex.value]);
       transform: translateY(0);
     }
   }
+}
+.item {
+  position: absolute;
+  bottom: 1vw;
+  right: 1vw;
+  z-index: 2;
 }
 </style>

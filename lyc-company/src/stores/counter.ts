@@ -16,7 +16,7 @@ export const useCounterStore = defineStore("counter", {
         const response = await fetch(url, {
           method: "GET",
           cache: "no-cache",
-          signal: AbortSignal.timeout(5000), // 5秒超时
+          signal: AbortSignal.timeout(10000), // 5秒超时
         });
 
         if (!response.ok) throw new Error("请求失败");

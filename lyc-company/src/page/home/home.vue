@@ -138,7 +138,7 @@ const toggleLanguage = () => {
 };
 
 // 使用handleSelect选择的key来找到映射中的组件
-const currentComponent = computed(() => componentsMap[activeIndex.value]);
+const currentComponent = computed(() => componentsMap[activeIndex.value as keyof typeof componentsMap]);
 // 自动获取访问人数
 counterStore.fetch();
 

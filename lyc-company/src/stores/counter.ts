@@ -16,7 +16,7 @@ export const useCounterStore = defineStore("counter", {
         const response = await fetch(url, {
           method: "GET",
           cache: "no-cache",
-          signal: AbortSignal.timeout(10000), // 5秒超时
+          signal: AbortSignal.timeout(10000), // 10秒超时
         });
 
         if (!response.ok) throw new Error("请求失败");
@@ -24,7 +24,7 @@ export const useCounterStore = defineStore("counter", {
         this.count = data.value;
         this.lastUpdated = new Date();
       } catch (err) {
-        this.error = err;
+        this.error = err as Error | null;
         this.count = -1; // 设置为 -1 以便在组件中显示 "N/A"
       } finally {
         this.isLoading = false;

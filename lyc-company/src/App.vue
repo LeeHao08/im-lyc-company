@@ -7,7 +7,7 @@
         <div class="logo-banner" role="banner">
           <img
             loading="lazy"
-            src="/src/assets/logo.png"
+            src="/src/assets/logo.webp"
             alt="Verrit Haven Company Logo"
             width="60"
             height="60"
@@ -163,7 +163,7 @@ useHead({
             "@type": "Organization",
             name: "Verrit Haven Company",
             url: "https://ecological-paradise.vercel.app",
-            logo: "https://ecological-paradise.vercel.app/src/assets/logo.png",
+            logo: "https://ecological-paradise.vercel.app/src/assets/logo.webp",
           },
         ])
       ),

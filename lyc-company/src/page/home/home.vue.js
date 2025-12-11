@@ -3,16 +3,16 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const activeIndex = ref(0);
 const lists = ref([
-    { src: "/src/assets/lbt1.jpg", alt: "home.page.home.lbt.text1" },
-    { src: "/src/assets/lbt2.jpg", alt: "home.page.home.lbt.text2" },
-    { src: "/src/assets/lbt3.jpg", alt: "home.page.home.lbt.text3" },
+    { src: "/src/assets/lbt1.webp", alt: "home.page.home.lbt.text1" },
+    { src: "/src/assets/lbt2.webp", alt: "home.page.home.lbt.text2" },
+    { src: "/src/assets/lbt3.webp", alt: "home.page.home.lbt.text3" },
 ]);
 const productlists = ref([
-    { src: "/src/assets/pro1.jpeg", alt: "home.page.home.product.item1" },
-    { src: "/src/assets/pro2.jpeg", alt: "home.page.home.product.item2" },
-    { src: "/src/assets/pro3.jpeg", alt: "home.page.home.product.item3" },
-    { src: "/src/assets/pro4.jpeg", alt: "home.page.home.product.item4" },
-    { src: "/src/assets/pro5.jpeg", alt: "home.page.home.product.item5" },
+    { src: "/src/assets/pro1.webp", alt: "home.page.home.product.item1" },
+    { src: "/src/assets/pro2.webp", alt: "home.page.home.product.item2" },
+    { src: "/src/assets/pro3.webp", alt: "home.page.home.product.item3" },
+    { src: "/src/assets/pro4.webp", alt: "home.page.home.product.item4" },
+    { src: "/src/assets/pro5.webp", alt: "home.page.home.product.item5" },
 ]);
 const handleChange = (current) => {
     activeIndex.value = current;
@@ -97,7 +97,7 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
     loading: "lazy",
-    src: "@/assets/company.jpg",
+    src: "@/assets/company.webp",
     alt: "公司办公环境展示",
     width: "600",
     height: "300",

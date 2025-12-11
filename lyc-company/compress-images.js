@@ -53,4 +53,51 @@ async function compressImages() {
   console.log("所有图片压缩完成！");
 }
 
-compressImages();
+// compressImages();
+
+import webp from "imagemin-webp";
+
+
+
+async function generateWebp() {
+  const extensions = ["jpg", "jpeg", "png"];
+  
+  async function getFiles(dir) {
+    let files = [];
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        files = files.concat(await getFiles(fullPath));
+      } else {
+        if (extensions.includes(entry.name.split(".").pop().toLowerCase())) {
+          files.push(fullPath);
+        }
+      }
+    }
+    return files;
+  }
+
+  const files = await getFiles(ASSETS_FOLDER);
+
+  for (const file of files) {
+    try {
+      const buffer = await imagemin([file], {
+        plugins: [
+          webp({ quality: 75 })
+        ],
+      });
+
+      if (buffer.length > 0) {
+        const webpPath = file.replace(/\.(jpg|jpeg|png)$/i, ".webp");
+        await fs.writeFile(webpPath, buffer[0].data);
+        console.log(`生成 WebP 图片: ${webpPath}`);
+      }
+    } catch (error) {
+      console.error(`生成 WebP 失败: ${file}`, error);
+    }
+  }
+  console.log("所有 WebP 图片生成完毕！");
+}
+
+generateWebp();

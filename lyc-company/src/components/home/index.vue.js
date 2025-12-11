@@ -3,16 +3,16 @@ import { useI18n } from "vue-i18n";
 const { t, locale } = useI18n();
 const activeIndex = ref(0);
 const lists = ref([
-    { src: "/src/assets/lbt1.webp", alt: "home.page.home.lbt.text1" },
-    { src: "/src/assets/lbt2.webp", alt: "home.page.home.lbt.text1" },
-    { src: "/src/assets/lbt3.webp", alt: "home.page.home.lbt.text1" },
+    { src: "/src/assets/lbt1-464w.webp", alt: "home.page.home.lbt.text1" },
+    { src: "/src/assets/lbt2-464w.webp", alt: "home.page.home.lbt.text1" },
+    { src: "/src/assets/lbt3-464w.webp", alt: "home.page.home.lbt.text1" },
 ]);
 const productlists = ref([
-    { src: "/src/assets/pro1.webp", alt: "home.page.home.product.item1" },
-    { src: "/src/assets/pro2.webp", alt: "home.page.home.product.item2" },
-    { src: "/src/assets/pro3.webp", alt: "home.page.home.product.item3" },
-    { src: "/src/assets/pro4.webp", alt: "home.page.home.product.item4" },
-    { src: "/src/assets/pro5.webp", alt: "home.page.home.product.item5" },
+    { src: "/src/assets/pro1-464w.webp", alt: "home.page.home.product.item1" },
+    { src: "/src/assets/pro2-464w.webp", alt: "home.page.home.product.item2" },
+    { src: "/src/assets/pro3-464w.webp", alt: "home.page.home.product.item3" },
+    { src: "/src/assets/pro4-464w.webp", alt: "home.page.home.product.item4" },
+    { src: "/src/assets/pro5-464w.webp", alt: "home.page.home.product.item5" },
 ]);
 // 轮播切换处理
 const handleChange = (current) => {
@@ -65,7 +65,7 @@ for (const [item, index] of __VLS_getVForSourceType((__VLS_ctx.lists))) {
     __VLS_11.slots.default;
     __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
         src: (item.src),
-        alt: "",
+        alt: (__VLS_ctx.$t(item.alt)),
     });
     __VLS_asFunctionalElement(__VLS_intrinsicElements.h1, __VLS_intrinsicElements.h1)({
         ...{ class: "animated-title" },
@@ -90,8 +90,10 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
     ...{ class: "imgbox" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
-    loading: "lazy",
-    src: "@/assets/company.webp",
+    srcset: "@/assets/company-232w.webp 480w, @/assets/company-464w.webp 1080w",
+    sizes: "30vw",
+    fetchpriority: "high",
+    src: "@/assets/company-232w.webp",
     alt: "company",
     height: (300),
     width: (600),
@@ -122,7 +124,8 @@ for (const [i, k] of __VLS_getVForSourceType((__VLS_ctx.productlists))) {
     /** @type {[typeof __VLS_components.ElImage, typeof __VLS_components.elImage, ]} */ ;
     // @ts-ignore
     const __VLS_17 = __VLS_asFunctionalComponent(__VLS_16, new __VLS_16({
-        loading: "lazy",
+        lazy: true,
+        alt: (__VLS_ctx.$t(i.alt)),
         src: (i.src),
         zoomRate: (1.2),
         maxScale: (7),
@@ -132,7 +135,8 @@ for (const [i, k] of __VLS_getVForSourceType((__VLS_ctx.productlists))) {
         showProgress: true,
     }));
     const __VLS_18 = __VLS_17({
-        loading: "lazy",
+        lazy: true,
+        alt: (__VLS_ctx.$t(i.alt)),
         src: (i.src),
         zoomRate: (1.2),
         maxScale: (7),

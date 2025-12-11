@@ -83,6 +83,8 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
     alt: "Verrit Haven Company Logo",
     width: "60",
     height: "60",
+    sizes: "4vw",
+    srcset: "/src/assets/logo-232w.webp 300w, /src/assets/logo-464w.webp 500w, /src/assets/logo-696w.webp 700w, /src/assets/logo-928w.webp 1080w",
     ...{ class: "logo-image" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({

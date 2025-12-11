@@ -90,6 +90,7 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
     ...{ class: "imgbox" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
+    loading: "lazy",
     src: "@/assets/company.jpg",
     alt: "",
 });
@@ -119,6 +120,7 @@ for (const [i, k] of __VLS_getVForSourceType((__VLS_ctx.productlists))) {
     /** @type {[typeof __VLS_components.ElImage, typeof __VLS_components.elImage, ]} */ ;
     // @ts-ignore
     const __VLS_17 = __VLS_asFunctionalComponent(__VLS_16, new __VLS_16({
+        loading: "lazy",
         src: (i.src),
         zoomRate: (1.2),
         maxScale: (7),
@@ -128,6 +130,7 @@ for (const [i, k] of __VLS_getVForSourceType((__VLS_ctx.productlists))) {
         showProgress: true,
     }));
     const __VLS_18 = __VLS_17({
+        loading: "lazy",
         src: (i.src),
         zoomRate: (1.2),
         maxScale: (7),

@@ -17,6 +17,12 @@
                 style="width: 6vw"
                 src="/src/assets/logo.png"
                 alt="Element logo"
+                srcset="
+                  /assets/logo-small.png   81w,
+                  /assets/logo-medium.png 162w,
+                  /assets/logo-large.png  324w
+                "
+                sizes="(max-width: 768px) 81px, 162px"
               />
             </el-menu-item>
             <div class="company-name">Verrit Haven Company</div>
@@ -139,7 +145,9 @@ const toggleLanguage = () => {
 };
 
 // 使用handleSelect选择的key来找到映射中的组件
-const currentComponent = computed(() => componentsMap[activeIndex.value as keyof typeof componentsMap]);
+const currentComponent = computed(
+  () => componentsMap[activeIndex.value as keyof typeof componentsMap]
+);
 // 自动获取访问人数
 counterStore.fetch();
 
@@ -148,58 +156,60 @@ const formattedCount = computed(() =>
   counterStore.count === -1 ? "N/A" : counterStore.count.toLocaleString()
 );
 
-
-import { useHead } from '@vueuse/head' // 引入 useHead
-
+import { useHead } from "@vueuse/head"; // 引入 useHead
 
 // ...您原来的代码...
 
 // 添加首页结构化数据
-const pageTitle = computed(() => 
-  locale.value === 'zh' ? '首页 - Verrit Haven 公司' : 'Home - Verrit Haven Company'
-)
+const pageTitle = computed(() =>
+  locale.value === "zh"
+    ? "首页 - Verrit Haven 公司"
+    : "Home - Verrit Haven Company"
+);
 
 useHead({
   title: pageTitle.value,
   script: [
     {
-      type: 'application/ld+json',
-      innerHTML: computed(() => JSON.stringify([
-        {
-          '@context': 'https://schema.org',
-          '@type': 'WebPage',
-          'name': pageTitle.value,
-          'description': t('home.page.home.introduct.text'),
-          'url': 'https://ecological-paradise.vercel.app/', // ⚠️ 改成您的域名
-          'inLanguage': locale.value === 'zh' ? 'zh-CN' : 'en-US',
-          'isPartOf': {
-            '@type': 'WebSite',
-            'name': 'Verrit Haven Company',
-            'url': 'https://ecological-paradise.vercel.app/' // ⚠️ 改成您的域名
-          }
-        },
-        // 为每个轮播图片添加 ImageObject 标记
-        {
-          '@context': 'https://schema.org',
-          '@type': 'ImageObject',
-          'url': 'https://ecological-paradise.vercel.app/src/assets/lbt1.jpg',
-          'name': t('home.page.home.lbt.text1'),
-          'description': t('home.page.home.lbt.text1'),
-          'uploadDate': '2025-12-11' // ⚠️ 改成您实际上传日期
-        },
-        // 为每个产品图片添加 ImageObject 标记（示例）
-        {
-          '@context': 'https://schema.org',
-          '@type': 'ImageObject',
-          'url': 'https://ecological-paradise.vercel.app/src/assets/pro1.jpeg',
-          'name': t('home.page.home.product.item1'),
-          'description': t('home.page.home.product.item1'),
-          'uploadDate': '2025-12-11'
-        }
-      ]))
-    }
-  ]
-})
+      type: "application/ld+json",
+      innerHTML: computed(() =>
+        JSON.stringify([
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: pageTitle.value,
+            description: t("home.page.home.introduct.text"),
+            url: "https://ecological-paradise.vercel.app/", // ⚠️ 改成您的域名
+            inLanguage: locale.value === "zh" ? "zh-CN" : "en-US",
+            isPartOf: {
+              "@type": "WebSite",
+              name: "Verrit Haven Company",
+              url: "https://ecological-paradise.vercel.app/", // ⚠️ 改成您的域名
+            },
+          },
+          // 为每个轮播图片添加 ImageObject 标记
+          {
+            "@context": "https://schema.org",
+            "@type": "ImageObject",
+            url: "https://ecological-paradise.vercel.app/src/assets/lbt1.jpg",
+            name: t("home.page.home.lbt.text1"),
+            description: t("home.page.home.lbt.text1"),
+            uploadDate: "2025-12-11", // ⚠️ 改成您实际上传日期
+          },
+          // 为每个产品图片添加 ImageObject 标记（示例）
+          {
+            "@context": "https://schema.org",
+            "@type": "ImageObject",
+            url: "https://ecological-paradise.vercel.app/src/assets/pro1.jpeg",
+            name: t("home.page.home.product.item1"),
+            description: t("home.page.home.product.item1"),
+            uploadDate: "2025-12-11",
+          },
+        ])
+      ),
+    },
+  ],
+});
 </script>
 
 <style lang="scss" scoped>

@@ -25,7 +25,7 @@
       </p>
     </div>
     <div class="imgbox">
-      <img loading="lazy" src="@/assets/company.jpg" alt="" />
+      <img loading="lazy" src="@/assets/company.jpg" alt="company" :height="300" :width="600" />
     </div>
   </div>
   <!-- 一品画语 -->
@@ -163,6 +163,7 @@ const handleChange = (current) => {
     flex: 1;
     img {
       height: 30vw;
+      width: 46.5vw;
       border-radius: 3vw;
     }
   }

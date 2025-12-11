@@ -38,50 +38,52 @@ const currentComponent = computed(() => componentsMap[activeIndex.value]);
 counterStore.fetch();
 // 格式化访问人数
 const formattedCount = computed(() => counterStore.count === -1 ? "N/A" : counterStore.count.toLocaleString());
-import { useHead } from '@vueuse/head'; // 引入 useHead
+import { useHead } from "@vueuse/head"; // 引入 useHead
 // ...您原来的代码...
 // 添加首页结构化数据
-const pageTitle = computed(() => locale.value === 'zh' ? '首页 - Verrit Haven 公司' : 'Home - Verrit Haven Company');
+const pageTitle = computed(() => locale.value === "zh"
+    ? "首页 - Verrit Haven 公司"
+    : "Home - Verrit Haven Company");
 useHead({
     title: pageTitle.value,
     script: [
         {
-            type: 'application/ld+json',
+            type: "application/ld+json",
             innerHTML: computed(() => JSON.stringify([
                 {
-                    '@context': 'https://schema.org',
-                    '@type': 'WebPage',
-                    'name': pageTitle.value,
-                    'description': t('home.page.home.introduct.text'),
-                    'url': 'https://ecological-paradise.vercel.app/', // ⚠️ 改成您的域名
-                    'inLanguage': locale.value === 'zh' ? 'zh-CN' : 'en-US',
-                    'isPartOf': {
-                        '@type': 'WebSite',
-                        'name': 'Verrit Haven Company',
-                        'url': 'https://ecological-paradise.vercel.app/' // ⚠️ 改成您的域名
-                    }
+                    "@context": "https://schema.org",
+                    "@type": "WebPage",
+                    name: pageTitle.value,
+                    description: t("home.page.home.introduct.text"),
+                    url: "https://ecological-paradise.vercel.app/", // ⚠️ 改成您的域名
+                    inLanguage: locale.value === "zh" ? "zh-CN" : "en-US",
+                    isPartOf: {
+                        "@type": "WebSite",
+                        name: "Verrit Haven Company",
+                        url: "https://ecological-paradise.vercel.app/", // ⚠️ 改成您的域名
+                    },
                 },
                 // 为每个轮播图片添加 ImageObject 标记
                 {
-                    '@context': 'https://schema.org',
-                    '@type': 'ImageObject',
-                    'url': 'https://ecological-paradise.vercel.app/src/assets/lbt1.jpg',
-                    'name': t('home.page.home.lbt.text1'),
-                    'description': t('home.page.home.lbt.text1'),
-                    'uploadDate': '2025-12-11' // ⚠️ 改成您实际上传日期
+                    "@context": "https://schema.org",
+                    "@type": "ImageObject",
+                    url: "https://ecological-paradise.vercel.app/src/assets/lbt1.jpg",
+                    name: t("home.page.home.lbt.text1"),
+                    description: t("home.page.home.lbt.text1"),
+                    uploadDate: "2025-12-11", // ⚠️ 改成您实际上传日期
                 },
                 // 为每个产品图片添加 ImageObject 标记（示例）
                 {
-                    '@context': 'https://schema.org',
-                    '@type': 'ImageObject',
-                    'url': 'https://ecological-paradise.vercel.app/src/assets/pro1.jpeg',
-                    'name': t('home.page.home.product.item1'),
-                    'description': t('home.page.home.product.item1'),
-                    'uploadDate': '2025-12-11'
-                }
-            ]))
-        }
-    ]
+                    "@context": "https://schema.org",
+                    "@type": "ImageObject",
+                    url: "https://ecological-paradise.vercel.app/src/assets/pro1.jpeg",
+                    name: t("home.page.home.product.item1"),
+                    description: t("home.page.home.product.item1"),
+                    uploadDate: "2025-12-11",
+                },
+            ])),
+        },
+    ],
 });
 debugger; /* PartiallyEnd: #3632/scriptSetup.vue */
 const __VLS_ctx = {};

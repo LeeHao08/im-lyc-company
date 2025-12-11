@@ -1,269 +1,244 @@
 <template>
-  <div class="common-layout">
-    <el-container>
-      <!-- 导航栏 -->
-      <el-header>
-        <el-menu
-          :default-active="activeIndex"
-          class="el-menu-demo"
-          mode="horizontal"
-          :ellipsis="false"
-          @select="handleSelect"
-        >
-          <div class="logo-container">
-            <el-menu-item>
-              <img
-                loading="lazy"
-                style="width: 6vw"
-                src="/src/assets/logo.png"
-                alt="Element logo"
-                srcset="
-                  /assets/logo-small.png   81w,
-                  /assets/logo-medium.png 162w,
-                  /assets/logo-large.png  324w
-                "
-                sizes="(max-width: 768px) 81px, 162px"
-              />
-            </el-menu-item>
-            <div class="company-name">Verrit Haven Company</div>
-          </div>
-
-          <el-menu-item index="home">{{ t("home.menu.home") }}</el-menu-item>
-          <el-menu-item index="location">{{
-            t("home.menu.location")
-          }}</el-menu-item>
-          <el-menu-item index="landscaping">{{
-            t("home.menu.landscaping")
-          }}</el-menu-item>
-          <el-menu-item index="architecture">{{
-            t("home.menu.architecture")
-          }}</el-menu-item>
-          <el-menu-item index="quality">{{
-            t("home.menu.quality")
-          }}</el-menu-item>
-
-          <el-button
-            class="langchange"
-            type="primary"
-            round
-            @click="toggleLanguage"
-          >
-            <span class="flag">{{ currentLang === "zh" ? "🇨🇳" : "🇺🇸" }}</span>
-            <span v-show="!isCollapse">{{ currentLang.toUpperCase() }}</span>
-          </el-button>
-        </el-menu>
-      </el-header>
-      <!-- 界面--可以动态切换的 -->
-      <el-main>
-        <Suspense>
-          <component
-            :is="currentComponent"
-            :key="activeIndex"
-            class="content-section"
-          />
-
-          <template #fallback>
-            <div class="loading-container">
-              <el-icon class="is-loading"><Loading /></el-icon>
-            </div>
-          </template>
-        </Suspense>
-      </el-main>
-      <el-container
-        v-loading="isLoading"
-        :style="{
-          visibility: activeIndex != 'location' ? 'hidden' : 'visible',
-          display: activeIndex != 'location' ? 'none' : 'flex',
-        }"
-      >
-        <el-main>
-          <iframe
-            src="https://opensource.icegl.cn/#/plugins/digitalCity/city2"
-            frameborder="0"
-            loading="lazy"
-            :style="{ width: '95vw', height: '100vh' }"
-          ></iframe
-        ></el-main>
-      </el-container>
-      <!-- 联系我们 -->
-
-      <MyFooter />
-    </el-container>
+  <!-- 轮播图 -->
+  <el-carousel
+    role="region"
+    aria-label="公司展示轮播图"
+    :interval="4000"
+    type="card"
+    height="20vw"
+    @change="handleChange"
+  >
+    <el-carousel-item
+      v-for="(item, index) in lists"
+      :key="index"
+      :class="{ 'active-item': activeIndex === index }"
+      :aria-label="$t(item.alt)"
+    >
+      <img 
+        :src="item.src" 
+        :alt="$t(item.alt)"
+        loading="lazy"
+        width="800"
+        height="600"
+      />
+      <h1 class="animated-title">{{ $t(item.alt) }}</h1>
+    </el-carousel-item>
+  </el-carousel>
+  
+  <!-- 企业介绍卡片 -->
+  <div class="cardbox">
+    <div class="textbox">
+      <span>{{ t("home.page.home.introduct.title") }}</span>
+      <span>{{ t("home.page.home.introduct.title2") }}</span>
+      <p>
+        {{ t("home.page.home.introduct.text") }}
+      </p>
+    </div>
+    <div class="imgbox">
+      <img 
+        loading="lazy" 
+        src="@/assets/company.jpg" 
+        alt="公司办公环境展示"
+        width="600"
+        height="300"
+      />
+    </div>
   </div>
-  <!-- 访问量 -->
-  <el-badge :value="formattedCount" class="item" color="green">
-    <el-button type="primary" :icon="View" circle />
-  </el-badge>
+  
+  <!-- 一品画语 -->
+  <div class="productbox">
+    <div class="titlebox">
+      <el-divider>{{ t("home.page.home.product.title") }}</el-divider>
+    </div>
+    <div class="picbox">
+      <div class="item" v-for="(i, k) in productlists" :key="k">
+        <el-image
+          loading="lazy"
+          :src="i.src"
+          :alt="$t(i.alt)"
+          :zoom-rate="1.2"
+          :max-scale="7"
+          :min-scale="0.2"
+          fit="fill"
+          :preview-src-list="[i.src]"
+          show-progress
+        />
+        <div>{{ $t(i.alt) }}</div>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script lang="ts" setup>
-import { View } from "@element-plus/icons-vue";
-import { ref, defineAsyncComponent, computed } from "vue";
+<script setup>
+import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { useCounterStore } from "@/stores/counter"; // 引入计数器存储
 
-const counterStore = useCounterStore(); // 使用计数器存储
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
-const loading = ref(true);
-const isCollapse = ref(true);
-const currentLang = ref(locale.value);
-const activeIndex = ref("home"); //菜单默认home
-//所有的组件的一个映射
-const componentsMap = {
-  home: defineAsyncComponent(() => import("@/components/home/index.vue")),
-  location: defineAsyncComponent(
-    () => import("@/components/location/index.vue")
-  ),
-  landscaping: defineAsyncComponent(
-    () => import("@/components/landscaping/index.vue")
-  ),
-  architecture: defineAsyncComponent(
-    () => import("@/components/architecture/index.vue")
-  ),
-  quality: defineAsyncComponent(() => import("@/components/quality/index.vue")),
+const activeIndex = ref(0);
+
+const lists = ref([
+  { src: "/src/assets/lbt1.jpg", alt: "home.page.home.lbt.text1" },
+  { src: "/src/assets/lbt2.jpg", alt: "home.page.home.lbt.text2" },
+  { src: "/src/assets/lbt3.jpg", alt: "home.page.home.lbt.text3" },
+]);
+
+const productlists = ref([
+  { src: "/src/assets/pro1.jpeg", alt: "home.page.home.product.item1" },
+  { src: "/src/assets/pro2.jpeg", alt: "home.page.home.product.item2" },
+  { src: "/src/assets/pro3.jpeg", alt: "home.page.home.product.item3" },
+  { src: "/src/assets/pro4.jpeg", alt: "home.page.home.product.item4" },
+  { src: "/src/assets/pro5.jpeg", alt: "home.page.home.product.item5" },
+]);
+
+const handleChange = (current) => {
+  activeIndex.value = current;
 };
-
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log("菜单激活", key, keyPath);
-  activeIndex.value = key;
-  loading.value = true; // 在切换选项卡时设置 loading 为 true
-  // 模拟加载过程
-  setTimeout(() => {
-    loading.value = false; // 2秒后将 loading 设置为 false
-  }, 4000);
-};
-// 使用computed来根据activeTab的值动态计算loading状态
-const isLoading = computed(
-  () => loading.value && activeIndex.value == "location"
-);
-
-const toggleLanguage = () => {
-  currentLang.value = currentLang.value === "en" ? "zh" : "en";
-  locale.value = currentLang.value;
-  localStorage.setItem("lang", currentLang.value);
-};
-
-// 使用handleSelect选择的key来找到映射中的组件
-const currentComponent = computed(
-  () => componentsMap[activeIndex.value as keyof typeof componentsMap]
-);
-// 自动获取访问人数
-counterStore.fetch();
-
-// 格式化访问人数
-const formattedCount = computed(() =>
-  counterStore.count === -1 ? "N/A" : counterStore.count.toLocaleString()
-);
-
-import { useHead } from "@vueuse/head"; // 引入 useHead
-
-// ...您原来的代码...
-
-// 添加首页结构化数据
-const pageTitle = computed(() =>
-  locale.value === "zh"
-    ? "首页 - Verrit Haven 公司"
-    : "Home - Verrit Haven Company"
-);
-
-useHead({
-  title: pageTitle.value,
-  script: [
-    {
-      type: "application/ld+json",
-      innerHTML: computed(() =>
-        JSON.stringify([
-          {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: pageTitle.value,
-            description: t("home.page.home.introduct.text"),
-            url: "https://ecological-paradise.vercel.app/", // ⚠️ 改成您的域名
-            inLanguage: locale.value === "zh" ? "zh-CN" : "en-US",
-            isPartOf: {
-              "@type": "WebSite",
-              name: "Verrit Haven Company",
-              url: "https://ecological-paradise.vercel.app/", // ⚠️ 改成您的域名
-            },
-          },
-          // 为每个轮播图片添加 ImageObject 标记
-          {
-            "@context": "https://schema.org",
-            "@type": "ImageObject",
-            url: "https://ecological-paradise.vercel.app/src/assets/lbt1.jpg",
-            name: t("home.page.home.lbt.text1"),
-            description: t("home.page.home.lbt.text1"),
-            uploadDate: "2025-12-11", // ⚠️ 改成您实际上传日期
-          },
-          // 为每个产品图片添加 ImageObject 标记（示例）
-          {
-            "@context": "https://schema.org",
-            "@type": "ImageObject",
-            url: "https://ecological-paradise.vercel.app/src/assets/pro1.jpeg",
-            name: t("home.page.home.product.item1"),
-            description: t("home.page.home.product.item1"),
-            uploadDate: "2025-12-11",
-          },
-        ])
-      ),
-    },
-  ],
-});
 </script>
 
 <style lang="scss" scoped>
-.el-header {
-  padding: 0;
-  .langchange {
-    margin-right: 1vw;
+.productbox {
+  margin-top: 5vw;
+  
+  .titlebox {
+    :deep(.el-divider__text) {
+      background-color: transparent;
+      font-size: 4vw;
+    }
+  }
+  
+  .picbox {
+    display: flex;
+    padding-top: 3vw;
+    height: 30vw;
+    justify-content: space-between;
+    
+    .item {
+      width: 18vw !important;
+      height: 100%;
+      flex: 1;
+      margin-inline: 1vw;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      
+      :deep(.el-image) {
+        width: 100%;
+        height: 80%;
+        transition: transform 0.3s;
+      }
+      
+      :deep(.el-image__inner) {
+        border-top-left-radius: 1vw;
+        border-top-right-radius: 1vw;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+        object-position: center center;
+      }
+      
+      div:nth-child(2) {
+        width: 100%;
+        padding-block: 1vw;
+        background: #c5a544;
+        text-align: center;
+        font-family: "Lora", serif;
+        font-size: 16px;
+        font-weight: normal;
+        color: #fff;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
   }
 }
 
-.logo-container {
+.cardbox {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
-  margin-right: auto;
-
-  .el-menu-item {
-    height: auto;
-    padding: 0 10px;
-  }
-
-  .company-name {
-    font-size: 1.5em;
-    color: #5e5602;
-    font-weight: bold;
-    white-space: nowrap;
-    margin-left: 10px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 2vw;
-  }
-}
-
-.el-menu--horizontal {
-  align-items: center;
-  .el-menu-item:nth-child(1) {
-    margin-right: auto;
-  }
-}
-.content-section {
-  animation: donghua 0.5s ease-in-out;
-  @keyframes donghua {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
+  margin-top: 5vw;
+  
+  .textbox {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+    span:nth-child(1) {
+      color: #000;
+      font-weight: 600;
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    
+    span:nth-child(2) {
+      color: #c3c3c3;
+      font-size: small;
+      font-weight: 500;
+    }
+    
+    p:nth-child(3) {
+      color: #595959;
+      padding-right: 2vw;
     }
   }
+  
+  .imgbox {
+    flex: 1;
+    
+    img {
+      width: 46.5vw;
+      height: 30vw;
+      border-radius: 3vw;
+      object-fit: cover;
+    }
+  }
 }
-.item {
+
+.animated-title {
   position: absolute;
-  bottom: 1vw;
-  right: 1vw;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 2.5vw;
   z-index: 2;
+}
+
+.el-carousel__item.active-item .animated-title {
+  opacity: 1;
+  animation: textGlow 2s infinite alternate;
+}
+
+@keyframes textGlow {
+  from {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  to {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+      2px 2px 4px rgba(0, 0, 0, 0.7);
+  }
+}
+
+.el-carousel__item {
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s ease;
+  }
+  
+  &:hover img {
+    transform: scale(1.05);
+  }
 }
 </style>

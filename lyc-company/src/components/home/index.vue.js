@@ -92,7 +92,9 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
 __VLS_asFunctionalElement(__VLS_intrinsicElements.img)({
     loading: "lazy",
     src: "@/assets/company.jpg",
-    alt: "",
+    alt: "company",
+    height: (300),
+    width: (600),
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "productbox" },

@@ -25,7 +25,7 @@
       </p>
     </div>
     <div class="imgbox">
-      <img src="@/assets/company.jpg" alt="" />
+      <img loading="lazy" src="@/assets/company.jpg" alt="" />
     </div>
   </div>
   <!-- 一品画语 -->
@@ -37,6 +37,8 @@
       <div class="item" v-for="(i, k) in productlists" :key="k">
         <!-- <img :src="i.src" alt="" /> -->
         <el-image
+          loading="lazy"
+          
           :src="i.src"
           :zoom-rate="1.2"
           :max-scale="7"

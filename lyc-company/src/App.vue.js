@@ -3,6 +3,8 @@ import { ref, defineAsyncComponent, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { useCounterStore } from "@/stores/counter";
 import { useHead } from "@vueuse/head";
+// 懒加载页脚组件
+const AsyncFooter = defineAsyncComponent(() => import('@/components/my-footer/index.vue'));
 const counterStore = useCounterStore();
 const { t, locale } = useI18n();
 const loading = ref(true);
@@ -304,44 +306,57 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.iframe, __VLS_intrinsicElement
 });
 var __VLS_71;
 var __VLS_67;
-const __VLS_72 = {}.MyFooter;
-/** @type {[typeof __VLS_components.MyFooter, ]} */ ;
+const __VLS_72 = {}.Suspense;
+/** @type {[typeof __VLS_components.Suspense, typeof __VLS_components.Suspense, ]} */ ;
 // @ts-ignore
 const __VLS_73 = __VLS_asFunctionalComponent(__VLS_72, new __VLS_72({}));
 const __VLS_74 = __VLS_73({}, ...__VLS_functionalComponentArgsRest(__VLS_73));
+__VLS_75.slots.default;
+const __VLS_76 = {}.AsyncFooter;
+/** @type {[typeof __VLS_components.AsyncFooter, ]} */ ;
+// @ts-ignore
+const __VLS_77 = __VLS_asFunctionalComponent(__VLS_76, new __VLS_76({}));
+const __VLS_78 = __VLS_77({}, ...__VLS_functionalComponentArgsRest(__VLS_77));
+{
+    const { fallback: __VLS_thisSlot } = __VLS_75.slots;
+    __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
+        ...{ style: {} },
+    });
+}
+var __VLS_75;
 var __VLS_3;
-const __VLS_76 = {}.ElBadge;
+const __VLS_80 = {}.ElBadge;
 /** @type {[typeof __VLS_components.ElBadge, typeof __VLS_components.elBadge, typeof __VLS_components.ElBadge, typeof __VLS_components.elBadge, ]} */ ;
 // @ts-ignore
-const __VLS_77 = __VLS_asFunctionalComponent(__VLS_76, new __VLS_76({
-    value: (__VLS_ctx.formattedCount),
-    ...{ class: "item" },
-    color: "green",
-}));
-const __VLS_78 = __VLS_77({
-    value: (__VLS_ctx.formattedCount),
-    ...{ class: "item" },
-    color: "green",
-}, ...__VLS_functionalComponentArgsRest(__VLS_77));
-__VLS_79.slots.default;
-const __VLS_80 = {}.ElButton;
-/** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
-// @ts-ignore
 const __VLS_81 = __VLS_asFunctionalComponent(__VLS_80, new __VLS_80({
-    type: "primary",
-    icon: (__VLS_ctx.View),
-    circle: true,
-    'aria-label': "访问量统计",
-    title: "访问量统计",
+    value: (__VLS_ctx.formattedCount),
+    ...{ class: "item" },
+    color: "green",
 }));
 const __VLS_82 = __VLS_81({
+    value: (__VLS_ctx.formattedCount),
+    ...{ class: "item" },
+    color: "green",
+}, ...__VLS_functionalComponentArgsRest(__VLS_81));
+__VLS_83.slots.default;
+const __VLS_84 = {}.ElButton;
+/** @type {[typeof __VLS_components.ElButton, typeof __VLS_components.elButton, ]} */ ;
+// @ts-ignore
+const __VLS_85 = __VLS_asFunctionalComponent(__VLS_84, new __VLS_84({
     type: "primary",
     icon: (__VLS_ctx.View),
     circle: true,
     'aria-label': "访问量统计",
     title: "访问量统计",
-}, ...__VLS_functionalComponentArgsRest(__VLS_81));
-var __VLS_79;
+}));
+const __VLS_86 = __VLS_85({
+    type: "primary",
+    icon: (__VLS_ctx.View),
+    circle: true,
+    'aria-label': "访问量统计",
+    title: "访问量统计",
+}, ...__VLS_functionalComponentArgsRest(__VLS_85));
+var __VLS_83;
 /** @type {__VLS_StyleScopedClasses['common-layout']} */ ;
 /** @type {__VLS_StyleScopedClasses['logo-banner']} */ ;
 /** @type {__VLS_StyleScopedClasses['logo-image']} */ ;
@@ -359,6 +374,7 @@ const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
             View: View,
+            AsyncFooter: AsyncFooter,
             t: t,
             isCollapse: isCollapse,
             currentLang: currentLang,

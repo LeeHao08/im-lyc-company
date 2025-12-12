@@ -3,16 +3,16 @@ import { useI18n } from "vue-i18n";
 const { t, locale } = useI18n();
 const activeIndex = ref(0);
 const lists = ref([
-    { src: "/src/assets/lbt1-464w.webp", alt: "home.page.home.lbt.text1" },
-    { src: "/src/assets/lbt2-464w.webp", alt: "home.page.home.lbt.text1" },
-    { src: "/src/assets/lbt3-464w.webp", alt: "home.page.home.lbt.text1" },
+    { src: "/src/assets/lbt1-232w.webp", alt: "home.page.home.lbt.text1" },
+    { src: "/src/assets/lbt2-232w.webp", alt: "home.page.home.lbt.text1" },
+    { src: "/src/assets/lbt3-232w.webp", alt: "home.page.home.lbt.text1" },
 ]);
 const productlists = ref([
-    { src: "/src/assets/pro1-464w.webp", alt: "home.page.home.product.item1" },
-    { src: "/src/assets/pro2-464w.webp", alt: "home.page.home.product.item2" },
-    { src: "/src/assets/pro3-464w.webp", alt: "home.page.home.product.item3" },
-    { src: "/src/assets/pro4-464w.webp", alt: "home.page.home.product.item4" },
-    { src: "/src/assets/pro5-464w.webp", alt: "home.page.home.product.item5" },
+    { src: "/src/assets/pro1-232w.webp", alt: "home.page.home.product.item1" },
+    { src: "/src/assets/pro2-232w.webp", alt: "home.page.home.product.item2" },
+    { src: "/src/assets/pro3-232w.webp", alt: "home.page.home.product.item3" },
+    { src: "/src/assets/pro4-232w.webp", alt: "home.page.home.product.item4" },
+    { src: "/src/assets/pro5-232w.webp", alt: "home.page.home.product.item5" },
 ]);
 // 轮播切换处理
 const handleChange = (current) => {

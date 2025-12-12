@@ -66,13 +66,14 @@
 
       <!-- 3D地图容器 -->
       <el-container
+      
         v-loading="isLoading"
         :style="{
           visibility: activeIndex != 'location' ? 'hidden' : 'visible',
           display: activeIndex != 'location' ? 'none' : 'flex',
         }"
       >
-        <el-main>
+        <el-main >
           <iframe
             src="https://opensource.icegl.cn/#/plugins/digitalCity/city2"
             frameborder="0"
@@ -84,7 +85,14 @@
       </el-container>
       
       <!-- 页脚 -->
-      <MyFooter />
+           <!-- 页脚，Lazy load -->
+      <Suspense>
+        <AsyncFooter />
+        <template #fallback>
+          <!-- 可以放个简单占位，或者什么都不显示 -->
+          <div style="height: 60px;"></div>
+        </template>
+      </Suspense>
     </el-container>
     
     <!-- 访问量统计按钮 -->
@@ -106,7 +114,10 @@ import { ref, defineAsyncComponent, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { useCounterStore } from "@/stores/counter";
 import { useHead } from "@vueuse/head";
+import { useRoute } from 'vue-router'
 
+// 懒加载页脚组件
+const AsyncFooter = defineAsyncComponent(() => import('@/components/my-footer/index.vue'));
 const counterStore = useCounterStore();
 const { t, locale } = useI18n();
 
@@ -149,14 +160,19 @@ const formattedCount = computed(() =>
 );
 
 // SEO结构化数据
+
+const route = useRoute()
+const canonicalUrl = computed(() => 'https://your-domain.com' + route.path)
 const pageTitle = computed(() =>
   locale.value === "zh" ? "首页 - Verrit Haven 公司" : "Home - Verrit Haven Company"
 );
-
 useHead({
-  title: pageTitle,
+  // 1. Canonical 标签
+  link: [{ rel: 'canonical', href: canonicalUrl.value }],
+  
+  // 2. Google Analytics
   script: [
-    {
+        {
       type: "application/ld+json",
       innerHTML: computed(() =>
         JSON.stringify([
@@ -170,8 +186,29 @@ useHead({
         ])
       ),
     },
+    {
+      src: 'https://www.googletagmanager.com/gtag/js?id=G-01F5TTHY3H',
+      async: true
+    },
+    {
+      innerHTML: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-01F5TTHY3H');
+      `
+    }
   ],
-});
+  
+  // 3. Google Search Console 验证
+  meta: [
+    // {
+    //   name: 'google-site-verification',
+    //   content: 'xxxxx-yyyyy-zzzzz' // ⚠️ 改成您的
+    // }
+  ]
+})
+
 </script>
 
 <style lang="scss" scoped>
